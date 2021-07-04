@@ -30,7 +30,7 @@ abstract class CenterDatabase : RoomDatabase() {
 
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    COVIDMapApplication.ApplicationContext(),
+                    COVIDMapApplication.getApplicationContext(),
                     CenterDatabase::class.java,
                     CENTER_DB
                 ).build()

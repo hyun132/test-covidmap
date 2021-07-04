@@ -14,6 +14,7 @@ import com.example.covidmap.R
 import com.example.covidmap.databinding.FragmentSplashBinding
 import com.example.covidmap.ui.map.MapsViewModel
 import kotlinx.coroutines.*
+import java.lang.Exception
 
 class SplashFragment : Fragment() {
 
@@ -33,18 +34,22 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.centerList.observe(viewLifecycleOwner, {
-            viewModel.saveCenterList(it)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    viewModel.saveCenterList(it)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
+            }
+
         })
 
-        viewModel.currentPage.observe(viewLifecycleOwner,{
-            if (it>=10){
+        viewModel.currentPage.observe(viewLifecycleOwner, {
+            if (it >= 10) {
                 findNavController().navigate(R.id.action_splashFragment_to_mapsFragment)
             }
-            CoroutineScope(Dispatchers.IO).launch {
-                viewModel.loadCenterList(it)
-                delay(50)
-            }
-        })
 
+            viewModel.loadCenterList(it)
+        })
     }
 }

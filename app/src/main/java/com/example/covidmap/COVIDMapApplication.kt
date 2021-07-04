@@ -11,7 +11,7 @@ class COVIDMapApplication:Application() {
 
     companion object {
         lateinit var instance: COVIDMapApplication
-        fun ApplicationContext() : Context {
+        fun getApplicationContext() : Context {
             return instance.applicationContext
         }
     }

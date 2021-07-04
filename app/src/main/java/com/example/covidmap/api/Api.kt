@@ -14,6 +14,5 @@ interface Api {
     fun searchCenter(
         @Query("page") page:Int,
         @Query("perPage") perPage:Int=10,
-//        @Query("returnType") returnType:String=
     ): Call<CenterResponse>
 }

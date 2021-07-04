@@ -18,8 +18,5 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-//        navController.navigate(R.id.splashFragment)
-//        findNavController(navHostFragment).navigate(R.id.splashFragment)
     }
 }

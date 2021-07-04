@@ -14,8 +14,6 @@ abstract class Service {
             val logging = HttpLoggingInterceptor()
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-
-            //여기 헤더에 보낼 이름 확인해봐야함.
             val interceptor = Interceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", "Infuser $REQUEST_KEY" )
