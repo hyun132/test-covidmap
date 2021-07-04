@@ -19,6 +19,6 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.covidmap.ui.map.MapsFragment"
-        android:label="fragment_maps"
+        android:label="예방접종센터"
         tools:layout="@layout/fragment_maps" />
 </navigation>

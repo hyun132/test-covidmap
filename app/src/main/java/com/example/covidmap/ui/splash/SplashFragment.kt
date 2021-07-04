@@ -38,17 +38,15 @@ class SplashFragment : Fragment() {
                 try {
                     viewModel.saveCenterList(it)
                 } catch (e: Exception) {
-                    e.stackTrace
+                    e.printStackTrace()
                 }
             }
-
         })
 
         viewModel.currentPage.observe(viewLifecycleOwner, {
             if (it >= 10) {
                 findNavController().navigate(R.id.action_splashFragment_to_mapsFragment)
             }
-
             viewModel.loadCenterList(it)
         })
     }

@@ -2,4 +2,8 @@
     <string name="app_name">COVIDMAP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  center type  -->
+    <string name="center_type1">지역</string>
+    <string name="center_type2">중앙/권역</string>
 </resources>

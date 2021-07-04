@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import com.example.covidmap.COVIDMapApplication.Companion.getApplicationContext
 import com.example.covidmap.R
 import com.example.covidmap.databinding.FragmentMapsBinding
+import com.example.covidmap.model.Center
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -44,22 +45,7 @@ class MapsFragment : Fragment() {
         map = googleMap
 
         if (!viewModel.centerList.value.isNullOrEmpty()) {
-            for (center in viewModel.centerList.value!!) {
-                val color = when (center.centerType) {
-                    "지역" -> BitmapDescriptorFactory.HUE_BLUE
-                    "중앙/권역" -> BitmapDescriptorFactory.HUE_RED
-                    else -> BitmapDescriptorFactory.HUE_YELLOW
-                }
-                googleMap.addMarker(
-                    MarkerOptions().position(
-                        LatLng(
-                            center.lat.toDouble(),
-                            center.lng.toDouble()
-                        )
-                    ).title(center.centerName)
-                        .icon(BitmapDescriptorFactory.defaultMarker(color))
-                )
-            }
+            addMarkers(viewModel.centerList.value!!)
         }
 
         googleMap.apply {
@@ -75,9 +61,10 @@ class MapsFragment : Fragment() {
                 Toast.makeText(context, it.title, Toast.LENGTH_SHORT).show()
                 false
             }
+
             moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
-                    currentLocation, 10F
+                    currentLocation, 15F
                 )
             )
         }
@@ -112,6 +99,25 @@ class MapsFragment : Fragment() {
         }
 
         mapFragment?.getMapAsync(callback)
+    }
+
+    private fun addMarkers(centerList: List<Center>) {
+        for (center in centerList) {
+            val color = when (center.centerType) {
+                resources.getString(R.string.center_type1) -> BitmapDescriptorFactory.HUE_BLUE
+                resources.getString(R.string.center_type2) -> BitmapDescriptorFactory.HUE_RED
+                else -> BitmapDescriptorFactory.HUE_YELLOW
+            }
+            map?.addMarker(
+                MarkerOptions().position(
+                    LatLng(
+                        center.lat.toDouble(),
+                        center.lng.toDouble()
+                    )
+                ).title(center.centerName)
+                    .icon(BitmapDescriptorFactory.defaultMarker(color))
+            )
+        }
     }
 
     private fun checkPermission() {
